@@ -11590,7 +11590,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var parentRect = parent.getBoundingClientRect()
 
 	  if (contentWindow) {
-	    
+
 	    var contentRect = contentWindow.getBoundingClientRect();
 
 	    if (anchorRect.bottom + this.maxHeight < contentRect.bottom) {
@@ -13991,7 +13991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  //Locating the schema of the node and checking for any enum type
 	  if(this.editor && this.editor.options) {
 	    // find the part of the json schema matching this nodes path
-	    this.schema = this.editor.options.schema 
+	    this.schema = this.editor.options.schema
 	        ? Node._findSchema(this.editor.options.schema, this.getPath())
 	        : null;
 	    if (this.schema) {
@@ -15226,6 +15226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var node = this;
 	  var titles = Node.TYPE_TITLES;
 	  var items = [];
+	  var extraItems = this.parent.items;
 
 	  if (this.editable.value) {
 	    items.push({
@@ -15430,6 +15431,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	          Node.onRemove(node);
 	        }
 	      });
+
+	      // create custom button
+	      if (extraItems) {
+	        var len = extraItems.length;
+	        for (var i=0;i<len;i++) {
+	          var item  = extraItems[i];
+	          item.node = node;
+	          if (!item.text) throw(["missing item.text", extraItems, item]);
+	          if (!item.click) throw(["missing item.click", extractItems, item]);
+	          if (!item.title) item.title = item.text;
+	          if (!item.className) item.className = 'jsoneditor-duplicate';
+	          item.click = item.click.bind(item.click, item);
+	          items.push(item);
+	        }
+	      }
 	    }
 	  }
 

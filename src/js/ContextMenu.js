@@ -216,7 +216,7 @@ ContextMenu.prototype.show = function (anchor, contentWindow) {
   var parentRect = parent.getBoundingClientRect()
 
   if (contentWindow) {
-    
+
     var contentRect = contentWindow.getBoundingClientRect();
 
     if (anchorRect.bottom + this.maxHeight < contentRect.bottom) {
